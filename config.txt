@@ -1,0 +1,9 @@
+[IP Address for ProPresenter Machine:]
+10.0.0.44
+[Port Number for ProPresenter (Find under Remote Stage Display port):]
+53333
+[Password for ProPresenter (Find under Remote Stage Display settings):]
+stagepw123
+[Current Slide Max Font Size:]
+output.txt
+[ENDCONFIG]
