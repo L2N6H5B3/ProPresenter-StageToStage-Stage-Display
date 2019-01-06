@@ -1,5 +1,5 @@
 [IP Address for ProPresenter Machine:]
-10.0.0.44
+10.0.0.49
 [Port Number for ProPresenter (Find under Remote Stage Display port):]
 53333
 [Password for ProPresenter (Find under Remote Stage Display settings):]
