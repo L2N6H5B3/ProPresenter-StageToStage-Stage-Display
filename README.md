@@ -8,12 +8,14 @@ StageToStage is a little Java-based app that I wrote to pull in the Stage Displa
 
 ## Configuration and Use
 config.txt stores all configuration information relating to the app.  Use config.txt to configure the IP/Hostname, ports, and passwords to use with StageToStage.
+**Quick-Exit:** To quick-exit the app, use "Q" on your keyboard while the app is in focus
 
 
 ## Upcoming Features
 Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Custom Layout Support (Either from ProPresenter itself or via text file)
+* Support for Windowed mode (with auto-resizing elements)
 
 
 **Credits:**
