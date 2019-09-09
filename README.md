@@ -16,6 +16,8 @@ Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Custom Layout Support (Either from ProPresenter itself or via text file)
 * Support for Windowed mode (with auto-resizing elements)
+* Auto IP scan mode (with specific pre-set port)
+* GUI for changing settings (via tray icon or button)
 
 
 **Credits:**
