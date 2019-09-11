@@ -7,8 +7,14 @@ StageToStage is a little Java-based app that I wrote to pull in the Stage Displa
 
 
 ## Configuration and Use
-config.txt stores all configuration information relating to the app.  Use config.txt to configure the IP/Hostname, ports, and passwords to use with StageToStage.
+StageToStage uses a ".properties" file for configuration information. Simply open config.properties just like you would any other text file to configure the IP/Hostname, ports, and passwords to use with StageToStage.
+
 **Quick-Exit:** To quick-exit the app, use "Q" on your keyboard while the app is in focus
+
+
+## New Features
+* **New!** StageToStage has now migrated away from ".txt" file reading to a ".properties" file, allowing for an error-free experience.  Simply open config.properties just like you would any other text file.
+* **New!** Auto IP scan mode (with specific pre-set port) is now available!  Simply specify the port to search inside config.properties, and set auto-scan to yes and StageToStage will search your local network for a machine running ProPresenter.
 
 
 ## Upcoming Features
@@ -16,7 +22,6 @@ Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Custom Layout Support (Either from ProPresenter itself or via text file)
 * Support for Windowed mode (with auto-resizing elements)
-* Auto IP scan mode (with specific pre-set port)
 * GUI for changing settings (via tray icon or button)
 
 
