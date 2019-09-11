@@ -46,8 +46,8 @@ public class TrayItem {
     	
         /* Use an appropriate Look and Feel */
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {
@@ -103,7 +103,7 @@ public class TrayItem {
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                		"ProPresenter 6 \"StageToStage\""
+                		"ProPresenter 6 \"StageToStage\" Ver 1.6"
                         		+ "\n" 
                 				+ "Created by Luke Bradtke"
                 				+ "\n" 
@@ -114,7 +114,7 @@ public class TrayItem {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	JOptionPane.showMessageDialog(null,
-                		"ProPresenter 6 \"StageToStage\""
+                		"ProPresenter 6 \"StageToStage\" Ver 1.6"
                         		+ "\n" 
                 				+ "Created by Luke Bradtke"
                 				+ "\n" 

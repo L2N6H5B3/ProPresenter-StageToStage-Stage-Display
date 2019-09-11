@@ -69,7 +69,7 @@ public class StageDisplayWindow extends JFrame {
 		int titleFontSize = Main.getTitleFontSize();
 		
 		// Initializes window
-		window = new JFrame("ProPresenter StageOnJava");
+		window = new JFrame("ProPresenter StageToStage");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setLayout(new BorderLayout());
@@ -175,12 +175,13 @@ public class StageDisplayWindow extends JFrame {
 	    window.getContentPane().setCursor(blankCursor);
 	    window.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	    window.pack();
-	    // Loads initial Disconnected Information Set into Stage Display Window
-	    disconnected();
+	    
 	    // Sets the Main Window visible
 	    window.setVisible(true);
+	    
 	    // Refreshes Main Window contents
 	    window.revalidate();
+	    
     }
 	
 	public void setCurrentSlide(String slide) {
@@ -261,7 +262,8 @@ public class StageDisplayWindow extends JFrame {
 		setClock("- - : - - --");
 		messageLabel.setText("[Error:] ProPresenter Unavailable - Check Network");
 		setVideoCountdown("- - : - - : - -");
-		setCurrentSlide("Attempting Connection to:"+"\n"+Main.PP.getHost()+":"+Main.PP.getPort());
+		setCurrentSlide("Attempting Connection to:"+"\n"+Main.PP.getHost()+":"+Main.PP.getPort()+"\n"+"Press Q to Close");
+		setNextSlide("");
 	}
 	
 	private void flashMessage() {

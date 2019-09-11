@@ -1,4 +1,4 @@
-package stageonjava.util;
+package stageonjava.util.deprecated;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
