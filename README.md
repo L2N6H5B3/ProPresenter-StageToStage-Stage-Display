@@ -9,6 +9,8 @@ StageToStage is a little Java-based app that I wrote to pull in the Stage Displa
 ## Configuration and Use
 StageToStage uses a ".properties" file for configuration information. Simply open config.properties just like you would any other text file to configure the IP/Hostname, ports, and passwords to use with StageToStage.
 
+Download the latest StageToStage release from the releases tab.
+
 **Quick-Exit:** To quick-exit the app, use "Q" on your keyboard while the app is in focus
 
 
