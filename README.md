@@ -28,4 +28,4 @@ Some of the features that I'm working on for the future are:
 
 
 **Credits:**
-Daniel Khilgren for his marvellous StageDisplayWindow class
+Daniel Khilgren for his marvellous StageDisplay and XMLReader classes
