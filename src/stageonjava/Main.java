@@ -6,12 +6,11 @@ import stageonjava.util.ProPresenterConnector;
 import stageonjava.util.ScanPorts;
 import stageonjava.util.PropertiesReader;
 
-/*
- * Author: Luke Bradtke
- * Since: 1.0
- * Version: 1.6
+/**
+ * @author Luke Bradtke
+ * @version 1.7
+ * @since 1.0
  */
-
 
 public class Main {
 	

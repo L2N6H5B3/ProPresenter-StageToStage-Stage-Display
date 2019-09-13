@@ -18,7 +18,7 @@ import stageonjava.model.*;
 
 /**
  * @author Luke Bradtke
- * @version 1.5
+ * @version 1.6
  * @since 1.0
  */
 
@@ -47,6 +47,7 @@ public class ProPresenterConnector {
 	
     private XmlDataReader xmlDataReader = new XmlDataReader();
     private XmlParser xmlParser = new XmlParser();
+    private LayoutReader layoutReader = new LayoutReader();
 	
     
 	public ProPresenterConnector(int port, String password) {
@@ -143,20 +144,24 @@ public class ProPresenterConnector {
     	activeConnection = false;
     	// Mark the login as failed
     	loginFailed = false;
+    	
+    	System.out.println("Lost Active Connection...");
 	}
 	
 	
 	private boolean update(BufferedReader in, PrintWriter out) {
 		// Reads data into XML format
-        String xmlRawData = null;
-		xmlRawData = xmlDataReader.readXmlData(in);
+        boolean readStatus = false;
+		readStatus = xmlDataReader.readXmlData(in);
 		
-        if (xmlRawData == null) {
+        if (!readStatus) {
             return false;
         }
         
+        layoutReader.convertToObjects(xmlDataReader.getLayoutXmlData());
+        
         // Creates a stage display object to pull data fields from
-        StageDisplay stageDisplay = xmlParser.parse(xmlRawData);
+        StageDisplay stageDisplay = xmlParser.parse(xmlDataReader.getUpdateXmlData());
         
         // Extracts slide objects from stage display object
         String currentSlide = stageDisplay.getData("CurrentSlide");
