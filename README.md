@@ -19,12 +19,13 @@ Download the latest StageToStage release from the [releases tab.](https://github
 * **New!** Auto IP scan mode (with specific pre-set port) is now available!  Simply specify the port to search inside config.properties, and set auto-scan to yes and StageToStage will search your local network for a machine running ProPresenter.  Very handy if your ProPresenter machine is assigned an IP through DHCP.
 
 
-## Upcoming Features
+## Upcoming Features / Ideas
 Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Custom Layout Support (Either from ProPresenter itself or via text file)
 * Support for Windowed mode (with auto-resizing elements)
 * GUI for changing settings (via tray icon or button)
+* Keep display alive when StageToStage is in focus
 
 
 **Credits:**
