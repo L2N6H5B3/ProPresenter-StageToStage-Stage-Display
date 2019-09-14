@@ -1,6 +1,5 @@
 package stageonjava.util;
 
-
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -13,13 +12,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
 /**
  * @author Luke Bradtke
  * @version 1.0
  * @since 1.0
  */
-
 
 public class ScanPorts {
 
@@ -44,7 +41,6 @@ public class ScanPorts {
 		GetIPAddress();
 	}
 	
-	
 	// Get current system IP Address
 	public void GetIPAddress() {
 		// Get the system's IP address
@@ -59,12 +55,10 @@ public class ScanPorts {
 		}
 	}
 	
-	
 	// Check if ScanPorts has an IP Address
 	public boolean HasIPAddress() {
 		return gotIP;
 	}
-	
 	
 	// Scan the local network for Hosts with open port
 	public List<String> Scan() {
@@ -98,7 +92,6 @@ public class ScanPorts {
 		}
 		return hosts;
 	}
-	
 	
 	// Scan IP for open port
 	public static Future<String> portIsOpen(final ExecutorService es, final String ip) {

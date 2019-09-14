@@ -1,4 +1,4 @@
-package stageonjava.model;
+package stageonjava.util.deprecated;
 
 /**
  * @author Daniel Kihlgren

@@ -8,11 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import stageonjava.model.*;
 
 
@@ -43,11 +38,13 @@ public class ProPresenterConnector {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
-	private StageDisplayWindow SD;
+	private StageDisplayWindow stageDisplayWindow;
+	private DisplayLayouts displayLayouts;
+	private StageDisplayData displayData;
 	
     private XmlDataReader xmlDataReader = new XmlDataReader();
-    private XmlParser xmlParser = new XmlParser();
     private LayoutReader layoutReader = new LayoutReader();
+    private DataReader dataReader = new DataReader();
 	
     
 	public ProPresenterConnector(int port, String password) {
@@ -58,10 +55,9 @@ public class ProPresenterConnector {
 	
 	public void createSDWindow() {
 	    // Create StageDisplayWindow object
-	    SD = new StageDisplayWindow();
-	    // Loads initial Disconnected Information Set into StageDisplayWindow
-	    SD.disconnected();
+	    stageDisplayWindow = new StageDisplayWindow();
 	    sdCreated = true;
+	    
 	}
 	
 	
@@ -127,7 +123,7 @@ public class ProPresenterConnector {
 	public void disconnect() {
 		
 		// Display disconnected data on the Stage Display screen
-    	SD.disconnected();
+    	stageDisplayWindow.disconnected();
     	
     	// Close all elements
     	if (socketActive) {
@@ -150,6 +146,7 @@ public class ProPresenterConnector {
 	
 	
 	private boolean update(BufferedReader in, PrintWriter out) {
+		
 		// Reads data into XML format
         boolean readStatus = false;
 		readStatus = xmlDataReader.readXmlData(in);
@@ -158,82 +155,13 @@ public class ProPresenterConnector {
             return false;
         }
         
-        layoutReader.convertToObjects(xmlDataReader.getLayoutXmlData());
         
-        // Creates a stage display object to pull data fields from
-        StageDisplay stageDisplay = xmlParser.parse(xmlDataReader.getUpdateXmlData());
+        displayLayouts = layoutReader.convertToObjects(xmlDataReader.getLayoutXmlData());
+        displayData = dataReader.convertToObjects(xmlDataReader.getUpdateXmlData());
         
-        // Extracts slide objects from stage display object
-        String currentSlide = stageDisplay.getData("CurrentSlide");
-        String nextSlide = stageDisplay.getData("NextSlide");
-        String time = stageDisplay.getData("Clock");
-        String videoCountdown = stageDisplay.getData("VideoCounter");
-        String message = stageDisplay.getData("Message");
-        
-        // --- Mac Only Fixes: ---
-        // Message is empty
-        if (message == "") {
-        	message = " ";
-        }
-        // Video Counter is idle (Spacing Issue)
-        if (videoCountdown.isEmpty()) {
-        	videoCountdown = "- - : - - : - -";
-        } else if (videoCountdown.charAt(1) == '-') {
-        	videoCountdown = "- - : - - : - -";
-        }
-        
-        // Date format is different
-        if (time.charAt(4) == '/') {
-        	
-			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
-				Date date;
-				date = sdf.parse(time);
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(date);
-				String hour = Integer.toString(cal.get(Calendar.HOUR));
-				String minute = Integer.toString(cal.get(Calendar.MINUTE));
-				
-				// Add extra styling zeroes to Hour
-				if (hour.length() < 2) {
-					
-					// If hour is 12AM/12PM, convert to 12 from 0
-					if (Integer.parseInt(hour) == 0) {
-						hour = Integer.toString(12);
-					}
-					
-					// If hour is another hour, add a zero to the front
-					else {
-						hour = "0"+hour;
-					}
-				}
-				
-				// Add extra styling zeroes to Minute
-				if (minute.length() < 2) {
-					minute = "0"+minute;
-				}
-				
-				// Add Hour and Minute together with colon
-				time = hour+":"+minute;
-				
-				// Add AM/PM Indicator
-				if (cal.get(Calendar.AM_PM) == 1) {
-					time = time+" PM";
-				} else {
-					time = time+" AM";
-				}
-				
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-        }
-        
-        SD.setCurrentSlide(currentSlide);
-        SD.setNextSlide(nextSlide);
-        SD.setClock(time);
-        SD.setVideoCountdown(videoCountdown);
-        SD.setMessage(message);
-        SD.revalidateWindow();
+        stageDisplayWindow.setCurrentLayout(displayLayouts);
+        stageDisplayWindow.updateData(displayData);
+
         return true;
     }
 	

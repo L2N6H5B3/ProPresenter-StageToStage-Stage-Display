@@ -6,7 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import stageonjava.model.DisplayLayouts;
+import stageonjava.model.StageDisplayData;
 
 /**
  * @author Luke Bradtke
@@ -14,24 +14,24 @@ import stageonjava.model.DisplayLayouts;
  * @since 1.0
  */
 
-public class LayoutReader {
+public class DataReader {
 	
 	// Create variable to hold DisplayLayouts object
-	private DisplayLayouts layouts = null;
+	private StageDisplayData fields = null;
     
 	// Create Objects from XML String
-    public DisplayLayouts convertToObjects(String xmlString) {
+    public StageDisplayData convertToObjects(String xmlString) {
     	
     	JAXBContext jaxbContext;
     	try {
-    	    jaxbContext = JAXBContext.newInstance(DisplayLayouts.class);             
+    	    jaxbContext = JAXBContext.newInstance(StageDisplayData.class);             
     	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     	    // Create Java Objects using JAXB
-    	    layouts = (DisplayLayouts) jaxbUnmarshaller.unmarshal(new StringReader(xmlString));
+    	    fields = (StageDisplayData) jaxbUnmarshaller.unmarshal(new StringReader(xmlString));
     	} catch (JAXBException e) {
-    	    System.out.println("Error creating Java objects from XML...");
-    	    return layouts;
+    	    System.out.println("Error creating StageDisplayField objects from XML... "+e);
+    	    return fields;
     	}
-    	return layouts;
+    	return fields;
     }
 }

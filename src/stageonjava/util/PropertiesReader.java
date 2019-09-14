@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
+import stageonjava.Main;
+
 /*
  * Author: Luke Bradtke
  * Since: 1.0
@@ -31,7 +33,6 @@ public class PropertiesReader {
 		} catch (IOException ex) {
 		    System.out.println("I/O Error... Please try again later.");
 		}
-		
 	}
 	
 	
@@ -40,7 +41,7 @@ public class PropertiesReader {
 		 
 		try {
 		    FileWriter writer = new FileWriter(configFile);
-		    props.store(writer, "StageToStage V1.6 Configuration");
+		    props.store(writer, "StageToStage V"+Main.getVersion()+" Configuration");
 		    writer.close();
 		} catch (FileNotFoundException ex) {
 			System.out.println("File Not Found... Please try again later.");
@@ -52,14 +53,12 @@ public class PropertiesReader {
 	
 	public String getProperty(String propertyID) {
 	    String property = props.getProperty(propertyID);
-//	    System.out.print(propertyID + " is: " + property+"\n");
 		return property;
 	}
 	
 	
 	public void setProperty(String propertyID, String property) {
 		props.setProperty(propertyID, property);
-//	    System.out.print(propertyID + " now is: " + property+"\n");
 	    saveProperties();
 	}
 }

@@ -24,7 +24,6 @@ public class DisplayLayout {
 	private String height;
 	@XmlAttribute(name = "width")
 	private String width;
-
 	
 	@XmlElement(name = "Frame")
 	private List<DisplayLayoutFrame> frame = new ArrayList<DisplayLayoutFrame>();
@@ -50,12 +49,12 @@ public class DisplayLayout {
 		return this.showBorder;
 	}
 	
-	public String getHeight() {
-		return this.height;
+	public int getHeight() {
+		return Integer.parseInt(this.height);
 	}
 	
-	public String getWidth() {
-		return this.width;
+	public int getWidth() {
+		return Integer.parseInt(this.width);
 	}
 	
 	public List<DisplayLayoutFrame> getFrames() {

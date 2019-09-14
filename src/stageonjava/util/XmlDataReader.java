@@ -33,7 +33,7 @@ public class XmlDataReader {
             
             // Try reading input
 			try {
-				inputLine = in.readLine();				
+				inputLine = in.readLine();
 			} catch (IOException e) {
 				System.out.println("Error Reading Line...");
 			}

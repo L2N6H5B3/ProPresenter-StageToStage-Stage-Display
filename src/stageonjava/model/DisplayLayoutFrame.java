@@ -1,5 +1,8 @@
 package stageonjava.model;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +19,8 @@ public class DisplayLayoutFrame {
 	private String identifier;
 	@XmlAttribute(name = "isVisible")
 	private String isVisible;
+	@XmlAttribute(name = "fontSize")
+	private String fontSize;
 	@XmlAttribute(name = "height")
 	private String height;
 	@XmlAttribute(name = "width")
@@ -24,19 +29,28 @@ public class DisplayLayoutFrame {
 	private String xAxis;
 	@XmlAttribute(name = "yAxis")
 	private String yAxis;
+	
+	private Dimension screenSize;
 
 	
 	public DisplayLayoutFrame() {
-		
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	
-	public DisplayLayoutFrame(String identifier, String isVisible, String height, String width, String xAxis, String yAxis) {
+	public DisplayLayoutFrame(String identifier, String isVisible, String fontSize, String height, String width, String xAxis, String yAxis) {
 		this.identifier = identifier;
 		this.isVisible = isVisible;
+		this.fontSize = fontSize;
 		this.height = height;
 		this.width = width;
 		this.xAxis = xAxis;
 		this.yAxis = yAxis;
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	}
+	
+	public String getName() {
+		String name = this.identifier.replaceAll("\\d+", "").replaceAll("(.)([A-Z])", "$1 $2");
+		return name;
 	}
 	
 	public String getIdentifier() {
@@ -47,20 +61,72 @@ public class DisplayLayoutFrame {
 		return this.isVisible;
 	}
 	
-	public String getHeight() {
-		return this.height;
+	public int getFontSize() {
+		if (fontSize == null) {
+			fontSize = "40";
+		}
+		
+		return convertToInt(this.fontSize);
 	}
 	
-	public String getWidth() {
-		return this.width;
+	public int getWidth(int expectedWidth) {
+		double frameWidth = convertToInt(this.width);
+		double screenWidth = (int) screenSize.getWidth();
+		double difference = expectedWidth - screenWidth;
+		double percent = difference / expectedWidth;
+		double returnedWidth = frameWidth * (1 - percent);
+		
+		return (int) returnedWidth;
 	}
 	
-	public String getXAxis() {
-		return this.xAxis;
+	public int getHeight(int expectedHeight) {
+		double frameHeight = convertToInt(this.height);
+		double screenHeight = (int) screenSize.getHeight();
+		double difference = expectedHeight - screenHeight;
+		double percent = difference / expectedHeight;
+		double returnedHeight = frameHeight * (1 - percent);
+		
+		return (int) returnedHeight;
 	}
 	
-	public String getYAxis() {
-		return this.yAxis;
+	public int getXAxis(int expectedWidth) {
+		
+		double frameXAxis = convertToInt(this.xAxis);
+		double screenWidth = (int) screenSize.getWidth();
+		double difference = expectedWidth - screenWidth;
+		double percent = difference / expectedWidth;
+		double returnedXAxis = frameXAxis * (1 - percent);
+		
+		return (int) returnedXAxis;
+	}
+	
+	public int getYAxis(int expectedHeight) {
+		double frameYAxis = convertToInt(this.yAxis);
+		double screenHeight = (int) screenSize.getHeight();
+		double difference = expectedHeight - screenHeight;
+		double percent = difference / expectedHeight;
+		double returnedYAxis = frameYAxis * (1 - percent);
+		
+		return (int) returnedYAxis;
+	}
+	
+	private int convertToInt(String string) {
+		
+		String newString = "";
+		boolean foundAll = false;
+		
+		for (int i=0;i<string.length();i++) {
+			if(!foundAll) {
+				if (string.charAt(i) == '.') {
+					foundAll = true;
+				} else {
+					newString += string.charAt(i);
+				}
+
+			}
+		}
+		
+		return Integer.parseInt(newString);
 	}
 	
 	@Override
