@@ -1,6 +1,6 @@
 # StageToStage for ProPresenter 6
 
-![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/Stage-To-Stage.png)
+![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/StandardLayout.png)
 
 ## StageToStage
 StageToStage is a little Java-based app that I wrote to pull in the Stage Display data from ProPresenter and display current and next lyric slides, along with the stage display message, Video Counter, and Clock.
@@ -13,6 +13,14 @@ Download the latest StageToStage release from the [releases tab.](https://github
 
 **Quick-Exit:** To quick-exit the app, use "Q" on your keyboard while the app is in focus
 
+
+## Layout Modes
+
+### StandardLayout
+![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/StandardLayout.png)
+
+### Custom(Auto)Layout
+![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/AutoLayout.png)
 
 ## New Features
 * **New!** StageToStage has now migrated away from ".txt" file reading to a ".properties" file, allowing for an error-free experience.  Simply open config.properties just like you would any other text file.
