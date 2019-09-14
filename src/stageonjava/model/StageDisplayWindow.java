@@ -276,6 +276,10 @@ public class StageDisplayWindow extends JFrame {
 			    		} else if (field.getValue().equals(" ")) {
 			    			lastMessage = field.getValue();
 			    		}
+			    	} else if (field.getIdentifier().equals("Clock") || field.getIdentifier().equals("VideoCounter")) {
+			    		adaptFont(frame.getValue());
+			    		frame.getValue().setHorizontalAlignment(SwingConstants.CENTER);
+			    		frame.getValue().setVerticalAlignment(SwingConstants.CENTER);
 			    	}
 			    }
 			}
@@ -290,7 +294,44 @@ public class StageDisplayWindow extends JFrame {
 //		setNextSlide("");
 	}
 	
-	public void flashLabel(JLabel label) {
+	private void adaptFont(JLabel label) {
+		Font labelFont = label.getFont();
+		String labelText = label.getText();
+
+		int stringWidth = label.getFontMetrics(labelFont).stringWidth(labelText);
+		int stringHeight = label.getFontMetrics(labelFont).getHeight();
+		
+		int componentWidth = label.getWidth();
+		int componentHeight = label.getHeight();
+		
+		System.out.println(label.getText());
+		System.out.println("Width: "+componentWidth+", Height: "+componentHeight);
+		System.out.println("StringWidth: "+stringWidth+", StringHeight: "+stringHeight);
+
+		
+		// Find out how much the font can grow in width.
+		double widthRatio = (double)componentWidth / ((double)stringWidth+5);
+		System.out.println("WidthRatio: "+widthRatio);
+		
+		// Find out how much the font can grow in height.
+		double heightRatio = (double)componentHeight / ((double)stringHeight+5);
+		System.out.println("HeightRatio: "+heightRatio);
+
+		
+		int newWidthFontSize = (int)(labelFont.getSize() * widthRatio);
+		int newHeightFontSize = (int)(labelFont.getSize() * heightRatio);
+		System.out.println("NewWidthFontSize: "+newWidthFontSize+", NewHeightFontSize: "+newHeightFontSize);
+		
+		
+		// Pick a new font size so it will not be larger than the height of label.
+		int fontSizeToUse = Math.min(newWidthFontSize-5, newHeightFontSize);
+		System.out.println("FontSizeToUse: "+fontSizeToUse);
+
+		// Set the label's font size to the newly determined size.
+		label.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+	}
+	
+	private void flashLabel(JLabel label) {
 		label.setOpaque(true);
         new Thread(new Runnable() {
             @Override
