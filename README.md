@@ -20,13 +20,12 @@ Download the latest StageToStage release from the [releases tab.](https://github
 * **New!** Custom Layout Support is now available!  StageToStage can now automatically pull the Stage Display layout from ProPresenter!  This feature is currently in beta, but if you still want to give it a go, just enable the "auto-layout" option in config.properties.  (NOTE: the "current-font-size", "next-font-size", and "clock-message-size" options only apply when auto-layout is not enabled.)
 * **New!** Rebuilt Data Object Engine has now been finished.  This allows for much greater expansion later on down the line to support additional features.
 
-## Upcoming Features / Ideas
+## Upcoming Features
 Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Support for Windowed mode (with auto-resizing elements)
 * GUI for changing settings (via tray icon or button)
-* Keep display alive when StageToStage is in focus
 
 
 **Credits:**
-Daniel Khilgren for his marvellous StageDisplay and XMLReader classes
+Inspiration for this project came from @JJHW149 and originally used some resources created by @DanielKhilgren, although the project has since migrated away from these resources.
