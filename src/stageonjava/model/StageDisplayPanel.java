@@ -23,7 +23,7 @@ import stageonjava.Main;
 public class StageDisplayPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+	private static Color flashColour;
 	private static Border newBorder;
 	private static MatteBorder mainGrayBorder;
 	
@@ -54,6 +54,10 @@ public class StageDisplayPanel extends JPanel {
 		// For each Frame in the Layout, add the fields to the StageDisplayPanel
 	    for (DisplayLayoutFrame frame : layout.getFrames()) {
 	    	
+	    	if (frame.hasFlashColour()) {
+	    		flashColour = frame.getFlashColour();
+	    	}
+	    	
 	    	JLabel textFrame = new JLabel();
 	    	
 	    	// Set Fonts for elements
@@ -83,6 +87,10 @@ public class StageDisplayPanel extends JPanel {
 	
 	public HashMap<String, JLabel> getAddedFrames() {
 		return addedFrames;
+	}
+	
+	public Color getMessageFlashColour() {
+		return flashColour;
 	}
 	
 	private TitledBorder setBorder(String text, Border newBorder, Font titleFont, MatteBorder mainGrayBorder) {

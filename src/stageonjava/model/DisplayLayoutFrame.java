@@ -1,5 +1,6 @@
 package stageonjava.model;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -29,6 +30,8 @@ public class DisplayLayoutFrame {
 	private String xAxis;
 	@XmlAttribute(name = "yAxis")
 	private String yAxis;
+	@XmlAttribute(name = "flashColor")
+	private String flashColor;
 	
 	private Dimension screenSize;
 
@@ -37,7 +40,7 @@ public class DisplayLayoutFrame {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	
-	public DisplayLayoutFrame(String identifier, String isVisible, String fontSize, String height, String width, String xAxis, String yAxis) {
+	public DisplayLayoutFrame(String identifier, String isVisible, String fontSize, String height, String width, String xAxis, String yAxis, String flashColor) {
 		this.identifier = identifier;
 		this.isVisible = isVisible;
 		this.fontSize = fontSize;
@@ -45,6 +48,7 @@ public class DisplayLayoutFrame {
 		this.width = width;
 		this.xAxis = xAxis;
 		this.yAxis = yAxis;
+		this.flashColor = flashColor;
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	
@@ -110,8 +114,20 @@ public class DisplayLayoutFrame {
 		return (int) returnedYAxis;
 	}
 	
+	public Color getFlashColour() {
+		String[] colors = flashColor.split(" ");
+		return new Color((int) (255 * Double.parseDouble(colors[0])),(int) (255 * Double.parseDouble(colors[1])),(int) (255 * Double.parseDouble(colors[2])));
+	}
+	
+	public boolean hasFlashColour() {
+		if (flashColor != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	private int convertToInt(String string) {
-		
 		String newString = "";
 		boolean foundAll = false;
 		
@@ -122,10 +138,8 @@ public class DisplayLayoutFrame {
 				} else {
 					newString += string.charAt(i);
 				}
-
 			}
 		}
-		
 		return Integer.parseInt(newString);
 	}
 	
@@ -137,6 +151,7 @@ public class DisplayLayoutFrame {
 				", Width:"+width+
 				", xAxis:"+xAxis+
 				", yAxis:"+yAxis+
+				", FlashColor:"+flashColor+
 				"]";
   }
 }

@@ -1,5 +1,6 @@
 package stageonjava;
 
+import java.awt.Color;
 import java.util.List;
 import stageonjava.tray.TrayItem;
 import stageonjava.util.ProPresenterConnector;
@@ -91,5 +92,10 @@ public class Main {
 	
 	public static String getVersion() {
 		return VERSION;
+	}
+
+	public static Color getFlashColour() {
+		String[] colours = props.getProperty("flash-colour").split(",");
+		return new Color(Integer.parseInt(colours[0]),Integer.parseInt(colours[1]),Integer.parseInt(colours[2]));
 	}
 }

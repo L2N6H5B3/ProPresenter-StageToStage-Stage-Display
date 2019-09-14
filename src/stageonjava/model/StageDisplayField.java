@@ -67,16 +67,16 @@ public class StageDisplayField {
 		return alpha;
 	}
 	
-	public String getRed() {
-		return red;
+	public int getRed() {
+		return convertColour(red);
 	}
 	
-	public String getGreen() {
-		return green;
+	public int getGreen() {
+		return convertColour(green);
 	}
 	
-	public String getBlue() {
-		return blue;
+	public int getBlue() {
+		return convertColour(blue);
 	}
 	
 	public String getValue() {
@@ -102,6 +102,15 @@ public class StageDisplayField {
 		return value;
 	}
 	
+	private int convertColour(String colour) {
+		System.out.println(colour);
+		Double value = Double.parseDouble(colour);
+		System.out.println(value);
+		int value1 = (int) (255 * value);
+		System.out.println(value1);
+		return value1;
+	}
+	
 	private String editTime(String time) {
 		// Date format is different
         if (time.charAt(4) == '/') {
@@ -124,9 +133,9 @@ public class StageDisplayField {
 					}
 					
 					// If hour is another hour, add a zero to the front
-					else {
-						hour = "0"+hour;
-					}
+//					else {
+//						hour = "0"+hour;
+//					}
 				}
 				
 				// Add extra styling zeroes to Minute

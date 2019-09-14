@@ -19,6 +19,7 @@ Download the latest StageToStage release from the [releases tab.](https://github
 * **New!** Auto IP scan mode (with specific pre-set port) is now available!  Simply specify the port to search inside config.properties, and set auto-scan to yes and StageToStage will search your local network for a machine running ProPresenter.  Very handy if your ProPresenter machine is assigned an IP through DHCP.
 * **New!** Custom Layout Support is now available!  StageToStage can now automatically pull the Stage Display layout from ProPresenter!  This feature is currently in beta, but if you still want to give it a go, just enable the "auto-layout" option in config.properties.  (NOTE: the "current-font-size", "next-font-size", and "clock-message-size" options only apply when auto-layout is not enabled.)
 * **New!** Rebuilt Data Object Engine has now been finished.  This allows for much greater expansion later on down the line to support additional features.
+* **New!** Custom flash colour is now available for the standard layout!  Use the "flash-colour" property in config.properties to assign an RGB (255,255,255) value to the message flash.
 
 ## Upcoming Features
 Some of the features that I'm working on for the future are:
