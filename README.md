@@ -25,6 +25,7 @@ Some of the features that I'm working on for the future are:
 * Live Slide Image support (via Base64 encoded images)
 * Support for Windowed mode (with auto-resizing elements)
 * GUI for changing settings (via tray icon or button)
+* Keep display alive when StageToStage is in focus
 
 
 **Credits:**
