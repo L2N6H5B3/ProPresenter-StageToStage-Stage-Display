@@ -18,9 +18,11 @@ Download the latest StageToStage release from the [releases tab.](https://github
 
 ### StandardLayout
 ![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/StandardLayout.png)
+This layout is the default layout, and is static.
 
 ### Custom(Auto)Layout
 ![alt text](https://raw.githubusercontent.com/L2N6H5B3/StageToStage/master/AutoLayout.png)
+This layout is not enabled by default, and can be enabled using the "auto-layout" property in config.properties. It's designed to pull in the current layout from ProPresenter.
 
 ## New Features
 * **New!** StageToStage has now migrated away from ".txt" file reading to a ".properties" file, allowing for an error-free experience.  Simply open config.properties just like you would any other text file.
