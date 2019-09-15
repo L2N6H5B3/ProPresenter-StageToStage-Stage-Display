@@ -33,11 +33,16 @@ This layout is not enabled by default, and can be enabled using the "auto-layout
 
 ## Upcoming Features
 Some of the features that I'm working on for the future are:
+* Ability for StageToStage to follow the currently selected Stage Display Layout in ProPresenter (requires complete overhaul of ProPresenter communication module to use WS instead of Socket)
 * Live Slide Image support (via Base64 encoded images, requires complete overhaul of ProPresenter communication module to use WS instead of Socket)
 * Support for Windowed mode (with auto-resizing elements)
 * GUI for changing settings (via tray icon or button)
 * Keep display alive when StageToStage is in focus
 
+
+## Changelog
+* Version 1.7: Added Custom(Auto) Layout Support, removed unused classes
+* Version 1.6: Added Auto IP Scan capability, started deprecation of unused classes
 
 **Credits:**
 Inspiration for this project came from @JJHW149 and originally used some resources created by @DanielKhilgren, although the project has since migrated away from these resources.
