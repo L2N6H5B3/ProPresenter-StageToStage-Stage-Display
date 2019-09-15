@@ -38,11 +38,11 @@ public class StageDisplayWindow extends JFrame {
 	// Initializes StageDisplayPanel
 	private StageDisplayPanel stageDisplayPanel;
 	// Initializes the expected Width and Height from the ProPresenter Stage Layouts XML
-	private int expectedWidth;
-	private int expectedHeight;
+	private int expectedWidth, expectedHeight;
 	// Initializes the Hashmap to hold the Frames added to the StageDisplayPanel
 	private HashMap<String, JLabel> addedFrames;
-	
+	// Initializes a variable to hold the current layout
+	private DisplayLayout displayLayout;
 	// Initializes Labels
 	private static JLabel currentSlideLabel, nextSlideLabel, clockLabel, messageLabel, videoCountdownLabel;
 	// Initializes MessageStore Variable
@@ -238,6 +238,7 @@ public class StageDisplayWindow extends JFrame {
 		
 		for (DisplayLayout layout : displayLayouts.getLayouts()) {
 	        if (layout.getIdentifier().equals(currentLayout)) {
+	        	displayLayout = layout;
 	        	
 	        	System.out.println("Setting Layout: "+layout.getIdentifier());
 	        	
@@ -264,10 +265,21 @@ public class StageDisplayWindow extends JFrame {
 			    if(frame.getKey().equals(field.getIdentifier())) {
 			    	frame.getValue().setText(field.getValue());
 			    	
-			    	// If this current field is the Message
-			    	if(field.getIdentifier().equals("Message")) {
+			    	// If this current field is the Clock, Message, or Video Counter, apply some formatting
+			    	if ((field.getIdentifier().equals("Clock") || field.getIdentifier().equals("Message") || field.getIdentifier().equals("VideoCounter")) && Main.props.getProperty("auto-layout").toLowerCase().contains("yes")) {
 			    		// Set the text to Center
 			    		frame.getValue().setHorizontalAlignment(SwingConstants.CENTER);
+			    		frame.getValue().setVerticalAlignment(SwingConstants.CENTER);
+			    		
+				    	for(DisplayLayoutFrame layoutFrame : displayLayout.getFrames()) {
+				    		if(layoutFrame.getIdentifier().equals(field.getIdentifier())) {
+				    			adaptFont(frame.getValue(), layoutFrame.getFontSize());
+				    		}
+				    	}
+			    	}
+			    	
+			    	// If this current field is the Message, flash the message
+			    	if(field.getIdentifier().equals("Message")) {
 			    		// If this current message is not the same as the last message, flash the display
 			    		if (!(lastMessage.equals(field.getValue())) && !(field.getValue().equals(" "))) {
 			    			// Flash the Label
@@ -278,30 +290,43 @@ public class StageDisplayWindow extends JFrame {
 			    			}
 			    			
 			    			
-			    			
 			    			lastMessage = field.getValue();
 			    		} else if (field.getValue().equals(" ")) {
 			    			lastMessage = field.getValue();
 			    		}
-			    	} else if ((field.getIdentifier().equals("Clock") || field.getIdentifier().equals("VideoCounter")) && Main.props.getProperty("auto-layout").toLowerCase().contains("yes")) {
-			    		adaptFont(frame.getValue());
-			    		frame.getValue().setHorizontalAlignment(SwingConstants.CENTER);
-			    		frame.getValue().setVerticalAlignment(SwingConstants.CENTER);
-			    	}
+			    	} 
 			    }
 			}
 		}
 	}
 	
 	public void disconnected() {
-//		setClock("- - : - - --");
-//		messageLabel.setText("[Error:] ProPresenter Unavailable - Check Network");
-//		setVideoCountdown("- - : - - : - -");
-//		setCurrentSlide("Attempting Connection to:"+"\n"+Main.PP.getHost()+":"+Main.PP.getPort()+"\n"+"Press Q to Close");
-//		setNextSlide("");
+		if (addedFrames != null) {
+			for (HashMap.Entry<String, JLabel> frame : addedFrames.entrySet()) {
+			    
+			    switch (frame.getKey()) {
+			    case "CurrentSlide":
+			    	frame.getValue().setText(editNewLine("Attempting Connection to:"+"\n"+Main.PP.getHost()+":"+Main.PP.getPort()+"\n"+"Press Q to Close"));
+			    	break;
+			    case "NextSlide":
+			    	frame.getValue().setText(" ");
+			    	break;
+			    case "Message":
+			    	frame.getValue().setText("[Error:] ProPresenter Unavailable - Check Network");
+			    	break;
+			    case "Clock":
+			    	frame.getValue().setText("- - : - - --");
+			    	break;
+			    case "VideoCounter":
+			    	frame.getValue().setText("- -:- -:- -");
+			    	break;
+			    }
+			}
+		}
 	}
 	
-	private void adaptFont(JLabel label) {
+	private void adaptFont(JLabel label, int maxSize) {
+		
 		Font labelFont = label.getFont();
 		String labelText = label.getText();
 
@@ -320,7 +345,10 @@ public class StageDisplayWindow extends JFrame {
 		int newHeightFontSize = (int)(labelFont.getSize() * heightRatio);
 		
 		// Pick a new font size so it will not be larger than the height of label.
-		int fontSizeToUse = Math.min(newWidthFontSize-5, newHeightFontSize);
+		int recSize = Math.min(newWidthFontSize-5, newHeightFontSize);
+		
+		// Compare the recommended size with the max size
+		int fontSizeToUse = Math.min(maxSize, recSize);
 
 		// Set the label's font size to the newly determined size.
 		label.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
@@ -343,6 +371,11 @@ public class StageDisplayWindow extends JFrame {
 	            }
         	}
         }).start();
+	}
+	
+	private String editNewLine(String text) {
+		text = "<html>" + text.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>";
+		return text;
 	}
 	
 	private TitledBorder setBorder(String text, Border newBorder, Font titleFont, MatteBorder mainGrayBorder) {

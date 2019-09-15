@@ -74,6 +74,8 @@ public class ProPresenterConnector {
 		socketActive = false;
 		attemptConnection = true;
 		
+		stageDisplayWindow.disconnected();
+		
 		while (attemptConnection) {
 			
 			// Try connecting to ProPresenter on host and port
@@ -140,8 +142,6 @@ public class ProPresenterConnector {
     	activeConnection = false;
     	// Mark the login as failed
     	loginFailed = false;
-    	
-    	System.out.println("Lost Active Connection...");
 	}
 	
 	
@@ -154,6 +154,10 @@ public class ProPresenterConnector {
         if (!readStatus) {
             return false;
         }
+        
+        // Send Login String to ProPresenter
+        out.println(getDisplayLayoutString());
+
         
         
         displayLayouts = layoutReader.convertToObjects(xmlDataReader.getLayoutXmlData());
@@ -183,6 +187,11 @@ public class ProPresenterConnector {
 		}
 		return status;
 	}
+	
+	
+    private String getDisplayLayoutString() {
+        return "<StageDisplayLayouts>";
+    }
 	
 	
     private String getLoginString() {

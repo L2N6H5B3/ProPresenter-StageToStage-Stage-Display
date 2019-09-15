@@ -67,7 +67,7 @@ public class DisplayLayoutFrame {
 	
 	public int getFontSize() {
 		if (fontSize == null) {
-			fontSize = "40";
+			fontSize = "240";
 		}
 		
 		return convertToInt(this.fontSize);
